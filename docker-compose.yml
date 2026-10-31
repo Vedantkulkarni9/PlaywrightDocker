@@ -1,0 +1,30 @@
+
+x-playwright-common: &playwright-common
+  build: .
+  init: true
+  ipc: host
+
+services:
+  shard1:
+    <<: *playwright-common
+    command: npx playwright test --shard=1/3 --workers=2 --reporter=blob
+    environment:
+      PLAYWRIGHT_BLOB_OUTPUT_DIR: /app/blob-reports/shard1
+    volumes:
+      - ./blob-reports/shard1:/app/blob-reports/shard1
+
+  shard2:
+    <<: *playwright-common
+    command: npx playwright test --shard=2/3 --workers=2 --reporter=blob
+    environment:
+      PLAYWRIGHT_BLOB_OUTPUT_DIR: /app/blob-reports/shard2
+    volumes:
+      - ./blob-reports/shard2:/app/blob-reports/shard2
+
+  shard3:
+    <<: *playwright-common
+    command: npx playwright test --shard=3/3 --workers=2 --reporter=blob
+    environment:
+      PLAYWRIGHT_BLOB_OUTPUT_DIR: /app/blob-reports/shard3
+    volumes:
+      - ./blob-reports/shard3:/app/blob-reports/shard3

@@ -1,0 +1,2 @@
+
+Testing Jenkins automatic trigger.
